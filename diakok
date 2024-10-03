@@ -1,0 +1,72 @@
+
+def diak_hozza():
+    try:
+        diakok = []
+        szeretne = int(input("Hány diákot szeretne hozzaadni?"))
+       
+    
+  
+        for diak in range(szeretne):
+            nev = input('diak neve: ')
+            jegy = input('diak jegye')
+            if jegy >5 or jegy < 1:
+                raise Exception('1tol nagyobb es maximum 5 legyen a jegy')
+            diakok.append((nev, int(jegy)))
+        return diakok
+    except:
+        diak_hozza()
+
+def megtekint(diakok:list):
+    print(f"{'Név':<10} | {'Jegy':<4}")
+    print("-"*16)
+    
+    for nev, jegy in diakok:
+        print(f"{nev:<10} | {jegy:<4}")
+
+def atlagjegy(diakok):
+    if diakok:
+        ossz = sum([jegy for valami, jegy in diakok])
+        atlag = ossz/len(diakok)
+        print(f'a diakok atlagjegye: {atlag}')
+    else:
+        print('nincs diak')
+        
+def magas_alacsony(diakok):
+    if diakok:
+        print(f'legmagasabb jegy : {max([jegy for valami, jegy in diakok])}')
+        print(f'legalacsonyabb jegy : {min([jegy for valami, jegy in diakok])}')
+    else:
+        print('nincs diak')
+        
+def eltav(diakok):
+    nev = input('adja meg a diak nevet: ')
+
+    for diak in diakok:
+        if diak[0] == nev:
+            diakok.remove(diak)
+            print('eltavolitva')
+            return
+    print('a diak nem talalhato')
+    
+    
+def main():
+    diakok = diak_hozza()
+    
+    while True:
+        valasz = input('szeretné megtekinteni a diakokat? (I/N) ').lower()
+        if valasz == 'i':
+            megtekint(diakok)
+        valasz = input('Szeretne megnezni ay atlagjegyet? (I/N) ').lower()
+        if valasz == 'i':
+            atlagjegy(diakok)
+        valasz = input('szeretne megtekinteni a legmagasabb es legalacsonyabb jegyet? (I/N) ').lower()
+        if valasz == 'i':
+            magas_alacsony(diakok)
+        valasz = input('szeretne eltavolitani egy diakot? (I/N) ').lower()
+        if valasz == 'i':
+            eltav(diakok)
+        
+        valasz = input('szeretned ujra megtekinteni a diakokat? (I/N) ').lower()
+        if valasz == 'n':
+            break
+main()
